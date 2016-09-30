@@ -1,4 +1,4 @@
-#include "functions.hpp"
+#include "../include/functions.hpp"
 #include <iostream>
 
 using namespace std;
@@ -12,17 +12,17 @@ void printGreetings()
     cout << "\n\n#################################";
 }
 
-void gameStart(int sucsess)
+void gameStart(int sucsess = 0)
 {
     printGreetings();
 
     int choice;
-    choice = cin.get()
+    choice = cin.get();
              //if(!(choice <= 3 && choice >= 1))
-             switch(choice)
+    switch(choice)
     {
     case 1:
-        GameMode = PvP;
+        gameMode = PvP;
         break;
 
     }
