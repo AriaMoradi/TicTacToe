@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1475194170 source:c:\users\aria moradi\desktop\programming\gaming projects\tictactoe\functions.cpp
+	"functions.hpp"
+	<iostream>
+
+1475193636 c:\users\aria moradi\desktop\programming\gaming projects\tictactoe\functions.hpp
+
+1475194153 source:c:\users\aria moradi\desktop\programming\gaming projects\tictactoe\mian.cpp
+	<iostream>
+	"functions.hpp"
+
