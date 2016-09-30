@@ -9,16 +9,17 @@
 	<iostream>
 	"functions.hpp"
 
-1475239904 source:c:\users\aria moradi\desktop\programming\gaming projects\tictactoe\src\functions.cpp
+1475258770 source:c:\users\aria moradi\desktop\programming\gaming projects\tictactoe\src\functions.cpp
 	"../include/functions.hpp"
 	<iostream>
+	<conio.h>
 
-1475240165 c:\users\aria moradi\desktop\programming\gaming projects\tictactoe\include\functions.hpp
+1475258390 c:\users\aria moradi\desktop\programming\gaming projects\tictactoe\include\functions.hpp
 	"neededVariables.hpp"
 
-1475240091 c:\users\aria moradi\desktop\programming\gaming projects\tictactoe\include\neededvariables.hpp
+1475258279 c:\users\aria moradi\desktop\programming\gaming projects\tictactoe\include\neededvariables.hpp
 
-1475240191 source:c:\users\aria moradi\desktop\programming\gaming projects\tictactoe\src\mian.cpp
+1475258363 source:c:\users\aria moradi\desktop\programming\gaming projects\tictactoe\src\mian.cpp
 	<iostream>
 	"../include/functions.hpp"
 

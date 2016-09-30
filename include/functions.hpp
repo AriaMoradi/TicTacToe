@@ -3,8 +3,8 @@
 #define __FUNCTIONS_H__
 
 
-void printGreetings();
+GameMode doGreetings(bool success = false);
 
-void gameStart();
+GameMode gameStart();
 
 #endif // __FUNCTIONS_H__
