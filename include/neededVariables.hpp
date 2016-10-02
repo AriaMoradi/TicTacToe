@@ -15,5 +15,19 @@ enum GameMode
     Quit
 };
 
+enum GameResult
+{
+    p1Win,
+    p2Win,
+    draw,
+};
+
+struct ResultContainer
+{
+    int p1Score = 0;
+    int p2Score = 0;
+    int drawCounter = 0;
+};
+
 
 #endif // __NEEDEDVARIABLES__HPP

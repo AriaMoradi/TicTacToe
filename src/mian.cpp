@@ -12,17 +12,18 @@ square=state of every block
 
 states of every block:
 
--1 -> is blank
-0 -> p1 has put his pin in the block
-1 -> p2 has put his pin in the block
+' ' -> is blank
+'X' -> p1 has put his pin in the block
+'O' -> p2 has put his pin in the block
 
 *****************
 */
-int square[9];
+char square[3][3];
 
 GameMode gameMode;
 GameState gameState;
-
+GameResult gameResult;
+ResultContainer resultContainer;
 
 //*********************************************************
 
@@ -30,16 +31,22 @@ GameState gameState;
 
 int main()
 {
-    for(int i=0; i<9; i++)
-        square[i]=-1;
+
+    initBoard(square);
+
 
     bool playing = true;
     //if the game is finished or not
+    gameMode = gameInit();
     while(playing)
     {
-        gameMode = gameStart();
         if(gameMode == Quit)
             break;
+
+        playGame(gameMode,square,resultContainer);
+
+
+
     }
 
     //cin.get();

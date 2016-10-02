@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="include/functions.hpp" />
+		<Unit filename="include/neededVariables.hpp" />
+		<Unit filename="src/functions.cpp" />
+		<Unit filename="src/mian.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

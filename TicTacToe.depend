@@ -23,3 +23,18 @@
 	<iostream>
 	"../include/functions.hpp"
 
+1475435918 source:c:\users\aria moradi\desktop\aria\programming\gaming projects\tictactoe\src\functions.cpp
+	"../include/functions.hpp"
+	<iostream>
+	<conio.h>
+	<stdlib.h>
+
+1475436005 c:\users\aria moradi\desktop\aria\programming\gaming projects\tictactoe\include\functions.hpp
+	"neededVariables.hpp"
+
+1475391562 c:\users\aria moradi\desktop\aria\programming\gaming projects\tictactoe\include\neededvariables.hpp
+
+1475435593 source:c:\users\aria moradi\desktop\aria\programming\gaming projects\tictactoe\src\mian.cpp
+	<iostream>
+	"../include/functions.hpp"
+
