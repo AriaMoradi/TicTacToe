@@ -45,7 +45,7 @@ GameMode gameInit()
 
 }
 
-void drawBoard(char sq[3][3])
+void drawBoard(char sq[3][3], ResultContainer rc)
 {
     system("cls");
     char gcb = -55; //gooshe chap bala
@@ -68,6 +68,10 @@ void drawBoard(char sq[3][3])
     cout << br << _do << b4 << _do << b4 << _do << bc << endl;
     cout << a << " " << sq[2][0] << " " << a << " " << sq[2][1] << " " << a << " " << sq [2][2] << " " << a << endl;
     cout << gcp << _do << bb << _do << bb << _do << grp << endl;
+
+    cout << "Player 1 wins Count: " << rc.p1Score << endl;
+    cout << "Player 2 wins Count: " << rc.p2Score << endl;
+    cout << "Number of draws : " << rc.drawCounter << endl;
 }
 
 void initBoard(char sq[3][3])
@@ -237,6 +241,29 @@ GameResult getAndUpdateGameResults(ResultContainer &resultContainer,char sq[3][3
 
 }
 
+vector getInput(char sq[3][3],ResultContainer rc,bool Error = false)
+{
+    system("cls");
+    drawBoard(sq,rc);
+    vector vec;
+
+    if (Error)
+    {
+        cout << "Invalid input!" << endl;
+    }
+    cout << "Eneter x: ";
+    cin >> vec.x;
+    cout << "Enter y: ";
+    cin >> vec.y;
+
+    if ( !(vec.x <= 3 && vec.x >= 1 && vec.y >= 1 && vec.y <= 3) )
+        return getInput(sq,rc,true);
+    if ( sq[vec.x-1][vec.y-1] != ' ' )
+        return getInput(sq,rc,true);
+
+    return vec;
+}
+
 GameResult playGame(GameMode currGameMode, char sq[3][3],ResultContainer & rc)
 {
     initBoard(sq);
@@ -246,14 +273,15 @@ GameResult playGame(GameMode currGameMode, char sq[3][3],ResultContainer & rc)
     do
     {
         system("cls");
-        drawBoard(sq);
+        drawBoard(sq,rc);
 
 
-        cout << "Player 1 wins Count: " << rc.p1Score << endl;
-        cout << "Player 2 wins Count: " << rc.p2Score << endl;
-        cout << "Number of draws : " << rc.drawCounter << endl;
+
         cout << "Turn : " << (turn?"Player 2":"Player 1") << endl;
-        cin >> i >> j;
+        vector vec = getInput(sq,rc);
+
+        i = vec.x;
+        j = vec.y;
 
         if (turn == p1)
         {
@@ -265,7 +293,7 @@ GameResult playGame(GameMode currGameMode, char sq[3][3],ResultContainer & rc)
             sq[i-1][j-1] = 'O';
             turn = p1;
         }
-        drawBoard(sq);
+        drawBoard(sq,rc);
         if (gameIsFinished(sq))
         {
             GameResult gr = getAndUpdateGameResults(rc,sq);

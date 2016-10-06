@@ -9,7 +9,7 @@ GameMode gameInit();
 
 void initBoard(char sq[3][3]);
 
-void drawBoard(char sq[3][3]);
+void drawBoard(char sq[3][3], ResultContainer rc);
 
 GameResult playGame(GameMode currGameMode, char sq[3][3],ResultContainer & rc);
 

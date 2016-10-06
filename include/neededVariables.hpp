@@ -29,5 +29,11 @@ struct ResultContainer
     int drawCounter = 0;
 };
 
+struct vector
+{
+    int x;
+    int y;
+};
+
 
 #endif // __NEEDEDVARIABLES__HPP
