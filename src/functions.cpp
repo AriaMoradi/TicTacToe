@@ -2,8 +2,12 @@
 #include <iostream>
 #include <conio.h>
 #include <stdlib.h>
+#include <windows.h>
+#include "../include/AI.hpp"
 
 using namespace std;
+
+AI ai;
 
 GameMode doGreetings(bool success/* = false*/)
 {
@@ -41,8 +45,19 @@ GameMode doGreetings(bool success/* = false*/)
 
 GameMode gameInit()
 {
-    return doGreetings();
-
+    GameMode gm = doGreetings();
+    if (gm == PvC)
+    {
+        do
+        {
+            cout << "Enter AI Level(in range of 1-2): ";
+            cin >> ai.aiLevel;
+            if (ai.aiLevel >= 1 && ai.aiLevel <= 2)
+               break;
+            cout << "Invalid Input!\n" ;
+        }while(true);
+    }
+    return gm;
 }
 
 void drawBoard(char sq[3][3], ResultContainer rc)
@@ -60,6 +75,10 @@ void drawBoard(char sq[3][3], ResultContainer rc)
     char bb = -54; //bast bala
     char grp = -68; //gooshe rast payyeen
 
+    cout << "P1 Score: " << rc.p1Score << "    ";
+    cout << "P2 Score: " << rc.p2Score << "    ";
+    cout << "Draws : " << rc.drawCounter << endl;
+
     char _do[4] = {o,o,o,0}; // divar ofoghi
     cout << gcb << _do << bp << _do << bp << _do << grb << endl;
     cout << a << " " << sq[0][0] << " " << a << " " << sq[0][1] << " " << a << " " << sq [0][2] << " " << a << endl;
@@ -69,9 +88,7 @@ void drawBoard(char sq[3][3], ResultContainer rc)
     cout << a << " " << sq[2][0] << " " << a << " " << sq[2][1] << " " << a << " " << sq [2][2] << " " << a << endl;
     cout << gcp << _do << bb << _do << bb << _do << grp << endl;
 
-    cout << "Player 1 wins Count: " << rc.p1Score << endl;
-    cout << "Player 2 wins Count: " << rc.p2Score << endl;
-    cout << "Number of draws : " << rc.drawCounter << endl;
+
 }
 
 void initBoard(char sq[3][3])
@@ -241,23 +258,33 @@ GameResult getAndUpdateGameResults(ResultContainer &resultContainer,char sq[3][3
 
 }
 
-vector getInput(char sq[3][3],ResultContainer rc,bool Error = false)
+vector getInput(char sq[3][3],ResultContainer rc,bool filedBlock = false)
 {
-    system("cls");
-    drawBoard(sq,rc);
+    //drawBoard(sq,rc);
     vector vec;
 
-    if (Error)
+    if (filedBlock)
     {
-        cout << "Invalid input!" << endl;
+        cout << "Considered block is already Filled!\n Please try again.\n" << endl;
     }
-    cout << "Eneter x: ";
-    cin >> vec.x;
-    cout << "Enter y: ";
-    cin >> vec.y;
+    do
+    {
+        cout << "Enter x: ";
+        cin >> vec.x;
+        if ( (vec.x <= 3 && vec.x >= 1 ) )
+            break;
+        cout << "Invalid input!\n";
+    }while(true);
+    do
+    {
+        cout << "Enter y: ";
+        cin >> vec.y;
+        if ( (vec.y <= 3 && vec.y >= 1 ) )
+            break;
+        cout << "Invalid input!\n";
+    }while(true);
 
-    if ( !(vec.x <= 3 && vec.x >= 1 && vec.y >= 1 && vec.y <= 3) )
-        return getInput(sq,rc,true);
+    // checking for filled block
     if ( sq[vec.x-1][vec.y-1] != ' ' )
         return getInput(sq,rc,true);
 
@@ -270,9 +297,11 @@ GameResult playGame(GameMode currGameMode, char sq[3][3],ResultContainer & rc)
     bool gameNotFinished = true;
     GameState turn = p1;
     int i, j;
+
+if(currGameMode == PvP )
     do
     {
-        system("cls");
+
         drawBoard(sq,rc);
 
 
@@ -321,6 +350,73 @@ GameResult playGame(GameMode currGameMode, char sq[3][3],ResultContainer & rc)
         }
 
     }while(gameNotFinished);
+
+
+if ( currGameMode == PvC )
+{
+    ai.setSquare(sq);
+    do
+    {
+
+        drawBoard(sq,rc);
+
+        cout << "Turn : " << (turn?"Player 2":"Player 1") << endl;
+
+        vector choosedPoint;
+
+        if ( turn == p1 )
+            choosedPoint = getInput(sq,rc);
+        else
+        {
+            choosedPoint = ai.choosePoint();
+            cout << "Enter x: " << choosedPoint.x << endl;
+            Sleep(800);
+            cout << "Enter y: " << choosedPoint.y << endl;
+            Sleep(1000);
+        }
+
+        i = choosedPoint.x;
+        j = choosedPoint.y;
+
+        if (turn == p1)
+        {
+            sq[i-1][j-1] = 'x';
+            turn = p2;
+        }
+        else
+        {
+            sq[i-1][j-1] = 'O';
+            turn = p1;
+        }
+        drawBoard(sq,rc);
+        if (gameIsFinished(sq))
+        {
+            GameResult gr = getAndUpdateGameResults(rc,sq);
+            if(gr==p1Win)
+            {
+                cout << "Player 1 Wins!\n";
+                system("pause");
+                system("cls");
+                return gr;
+            }
+            if(gr==p2Win)
+            {
+                cout << "Player 2 Wins!\n";
+                system("pause");
+                system("cls");
+                return gr;
+            }
+            else//gr is draw
+            {
+                cout << "Game is draw!\n";
+                system("pause");
+                system("cls");
+                return gr;
+            }
+        }
+
+    }while(gameNotFinished);
+}
 }
 
 
